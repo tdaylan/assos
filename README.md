@@ -1,2 +1,2 @@
-# LBIT
-Low surface BrIghtness with TESS
+# Assos
+Investigation of diffuse emission in the TESS Full Frame Images

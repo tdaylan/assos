@@ -32,7 +32,10 @@ from mpl_toolkits.axes_grid1.inset_locator import inset_axes
 
 import multiprocessing
 
-            
+'''
+Library to characterize diffuse emission in the TESS Full Frame Images (FFIs)
+'''
+
 def plot_anim(gdat, cntp, strgvarb, cmap='Greys_r', strgtitlbase='', boolresi=False, indxsideyposoffs=0, indxsidexposoffs=0):
     
     vmin = np.amin(cntp)
@@ -143,18 +146,16 @@ def init( \
     # string for date and time
     gdat.strgtimestmp = datetime.datetime.now().strftime('%Y%m%d_%H%M%S')
     
-    print('LoSBOT initialized at %s...' % gdat.strgtimestmp)
+    print('Assos initialized at %s...' % gdat.strgtimestmp)
     
     #if ((listicam is not None or listiccd is not None) and listtici is not None):
     #    raise Exception('')
-
-    #star = eleanor.Source(tic=38846515, sector=1, tc=True)
 
     gdat.strgcntp = gdat.datatype
 
     # paths
     ## read PCAT path environment variable
-    gdat.pathbase = os.environ['LSBT_DATA_PATH'] + '/'
+    gdat.pathbase = os.environ['ASSOS_DATA_PATH'] + '/'
     gdat.pathdata = gdat.pathbase + 'data/'
     gdat.pathimag = gdat.pathbase + 'imag/'
     ## define paths
