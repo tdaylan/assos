@@ -1,5 +1,5 @@
-# Assos
+# assos
 
 ## Introduction
-Investigation of diffuse emission in the TESS Full Frame Images
+Pipeline to characterize diffuse emission in imaging data
 
