@@ -43,7 +43,7 @@ from tdpy import summgene
 
 
 '''
-Library to characterize diffuse emission in the TESS Full Frame Images (FFIs)
+Library to forward-model imaging data
 '''
 
 def plot_anim(gdat, cntp, strgvarb, cmap='Greys_r', strgtitlbase='', boolresi=False, indxsideyposoffs=0, indxsidexposoffs=0):
