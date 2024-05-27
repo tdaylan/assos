@@ -2194,6 +2194,10 @@ def setp_modlemis_finl(gdat, strgmodl):
         
 
 def eval_emislens( \
+                  # grid
+                  xposgrid=None, \
+                  yposgrid=None, \
+
                   # input dictionary
                   dictchalinpt=None, \
                   
@@ -2296,25 +2300,23 @@ def eval_emislens( \
     if numbsidecart is None:
         numbsidecart = 100
         maxmfovw = 2.
-        numbpixlcart = numbsidecart**2
-        indxpixlcart = np.arange(numbpixlcart)
         xposside = np.linspace(-maxmfovw, maxmfovw, 100)
         yposside = xposside
         xposgrid, yposgrid = np.meshgrid(xposside, yposside, indexing='ij')
         xposgridflat = xposgrid.flatten()
         yposgridflat = yposgrid.flatten()
-    
+        
     numbpixl = numbsidecart**2
     indxpixl = np.arange(numbpixl)
     
     numbsubh = dictchalinpt['xpossubh'].size
     indxsubh = np.arange(numbsubh)
 
-    defl = np.zeros((numbpixlcart, 2))
+    defl = np.zeros((numbpixl, 2))
         
     for e in indxsersfgrd:
 
-        deflhost[e] = chalcedon.retr_defl(gdat.xposgrid, gdat.yposgrid, indxpixlcart, xposhost[e], yposhost[e], \
+        deflhost[e] = chalcedon.retr_defl(gdat.xposgrid, gdat.yposgrid, indxpixl, xposhost[e], yposhost[e], \
                                                                     beinhost[e], ellp=ellphost[e], angl=anglhost[e])
          
         if gdat.booldiag:
@@ -2644,7 +2646,7 @@ def eval_emislens( \
     if typeverb > 1:
         print('Summing up the model emission...')
     
-    sbrt['modlraww'] = np.zeros((dictchalinpt['numbener'], numbpixlcart, gdat.numbdqlt))
+    sbrt['modlraww'] = np.zeros((dictchalinpt['numbener'], numbpixl, gdat.numbdqlt))
     for name in listnamediff:
         if name.startswith('back'):
             indxbacktemp = int(name[4:8])
@@ -2678,11 +2680,11 @@ def eval_emislens( \
                     print('Convolving ii, i, mm, m')
                     print(ii, i, mm, m)
                 if typepixl == 'cart':
-                    if numbpixl == numbpixlcart:
+                    if numbpixl == numbpixl:
                         sbrt['modlconv'][ii, :, mm] = convolve_fft(sbrt['modlraww'][ii, :, mm].reshape((gdat.numbsidecart, gdat.numbsidecart)), \
                                                                                                                              objtpsfnconv[mm][ii]).flatten()
                     else:
-                        sbrtfull = np.zeros(numbpixlcart)
+                        sbrtfull = np.zeros(numbpixl)
                         sbrtfull[indxpixlrofi] = sbrt['modlraww'][ii, :, mm]
                         sbrtfull = sbrtfull.reshape((gdat.numbsidecart, gdat.numbsidecart))
                         sbrt['modlconv'][ii, :, mm] = convolve_fft(sbrtfull, objtpsfnconv[mm][ii]).flatten()[indxpixlrofi]
