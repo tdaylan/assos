@@ -2241,6 +2241,9 @@ def eval_emislens( \
     # output dictionary
     dictchaloutp = dict()
     
+    if dictchalinpt is None:
+        dictchalinpt = dict()
+    
     #objttimeprof = tdpt.retr_objttimeprof('emislens')
 
     #objttimeprof.initchro(gdat, gdatmodi, 'elem')
@@ -2315,9 +2318,13 @@ def eval_emislens( \
     defl = np.zeros((numbpixl, 2))
         
     for e in indxsersfgrd:
-
-        deflhost[e] = chalcedon.retr_defl(gdat.xposgrid, gdat.yposgrid, indxpixl, xposhost[e], yposhost[e], \
-                                                                    beinhost[e], ellp=ellphost[e], angl=anglhost[e])
+        
+        dictchalinpt['xposhost'] = xposhost[e]
+        dictchalinpt['yposhost'] = yposhost[e]
+        dictchalinpt['beinhost'] = beinhost[e]
+        dictchalinpt['ellphost'] = ellphost[e]
+        dictchalinpt['anglhost'] = anglhost[e]
+        deflhost[e] = chalcedon.retr_defl(gdat.xposgrid, gdat.yposgrid, indxpixl, dictchalinpt)
          
         if gdat.booldiag:
             if not np.isfinite(deflhost[e]).all():
@@ -2467,9 +2474,7 @@ def eval_emislens( \
                     indxpixltemp = listindxpixlelem[l][k]
                 else:
                     indxpixltemp = indxpixl
-                deflsubh[indxpixl, :] += chalcedon.retr_defl(xposgridflat, yposgridflat, indxpixltemp, \
-                                             dictchalinpt['xpossubh'][k], dictchalinpt['ypossubh'][k], dictchalinpt['defssubh'][k], \
-                                             asca=asca, acut=acut)
+                deflsubh[indxpixl, :] += chalcedon.retr_defl(xposgridflat, yposgridflat, indxpixltemp, dictchalinpt)
         
             # temp -- find out what is causing the features in the element convergence maps
             #for k, k in enumerate(indxelem[l]):
