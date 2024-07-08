@@ -1,5 +1,5 @@
 # assos
 
 ## Introduction
-Pipeline to characterize diffuse emission in imaging data
+Pipeline to forward-model imaging data
 

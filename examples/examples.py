@@ -30,6 +30,11 @@ def cnfg_ggal():
     dictchalinpt['sherextr'] = 0.3
     dictchalinpt['sangextr'] = 0.3
     
+    dictchalinpt['xposhost'] = np.array([0.])
+    dictchalinpt['yposhost'] = np.array([0.])
+    dictchalinpt['ellphost'] = np.array([0.1])
+    dictchalinpt['beinhost'] = np.array([1.])
+    
     dictchalinpt['xpossubh'] = np.array([1.])
     dictchalinpt['ypossubh'] = np.array([1.])
     dictchalinpt['defssubh'] = np.array([1.])
