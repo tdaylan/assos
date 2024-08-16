@@ -2474,8 +2474,13 @@ def eval_emislens( \
                     indxpixltemp = listindxpixlelem[l][k]
                 else:
                     indxpixltemp = indxpixl
-                deflsubh[indxpixl, :] += chalcedon.retr_defl(xposgridflat, yposgridflat, indxpixltemp, dictchalinpt)
-        
+                print('chalcedon.retr_defl(xposgridflat, yposgridflat, indxpixltemp, dictchalinpt)')
+                summgene(chalcedon.retr_defl(xposgridflat, yposgridflat, indxpixltemp, dictchalinpt))
+                print('deflsubh[indxpixl, :]')
+                summgene(deflsubh[indxpixl, :])
+                dictchaloutp = chalcedon.retr_defl(xposgridflat, yposgridflat, indxpixltemp, dictchalinpt)
+                deflsubh[indxpixl, :] += dictchaloutp['defltotl']
+
             # temp -- find out what is causing the features in the element convergence maps
             #for k, k in enumerate(indxelem[l]):
             #    indxpixlpnts = retr_indxpixl(gdat, dictchalinpt['ypos'][k], dictchalinpt['xpos'][k])
@@ -2496,7 +2501,7 @@ def eval_emislens( \
 
     # evaluate surface brightnesses
     sbrt = dict()
-    for name in listnamediff:
+    for name in gmod.listnamediff:
         sbrt[name] = []
     
     ## due to elements
@@ -2652,7 +2657,7 @@ def eval_emislens( \
         print('Summing up the model emission...')
     
     sbrt['modlraww'] = np.zeros((dictchalinpt['numbener'], numbpixl, gdat.numbdqlt))
-    for name in listnamediff:
+    for name in gmod.listnamediff:
         if name.startswith('back'):
             indxbacktemp = int(name[4:8])
             
